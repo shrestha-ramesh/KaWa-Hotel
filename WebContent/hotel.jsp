@@ -10,7 +10,7 @@
 </head>
 <body style="background-color:#e6ffff">
 	<%
-		if(session.getAttribute("check3")==null){
+		if(session.getAttribute("check3")== null){
 			response.sendRedirect("hotel.html");
 		}
 		String firstname = request.getParameter("firstname");
@@ -18,12 +18,20 @@
 		String checkin = request.getParameter("checkin");
 		String checkout = request.getParameter("checkout");
 		String people = request.getParameter("people");
+		String InOut = "After 4:00 PM Before 11:00 AM";
+		int total = (int)request.getAttribute("Total");
 		try{
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Mysqlworkbench");
 		Statement st = con.createStatement();
 		ResultSet rs;
-		int i = st.executeUpdate("insert into hotel values('"+firstname+"','"+lastname+"','"+checkin+"','"+checkout+"','"+people+"')");
+		int id = 0;
+		rs = st.executeQuery("select * from hotel");
+		if(rs.last()){
+			id = rs.getInt("id");
+			id = id + 1;
+		}
+		int i = st.executeUpdate("insert into hotel values('"+firstname+"','"+lastname+"','"+checkin+"','"+checkout+"','"+people+"','"+InOut+"','"+total+"','"+id+"')");
 		}catch(Exception e){
 			out.println(e);
 		}

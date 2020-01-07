@@ -16,7 +16,7 @@ public class Hotel extends HttpServlet {
 		String check3 = request.getParameter("firstname");
 		String check4 = request.getParameter("lastname");
 		HttpSession session = request.getSession();
-		session.setAttribute("check3", check);
+		session.setAttribute("check3",check);
 		if(check != "" && check1 !="" && check2 !="" &&check3 !="" && check4 != "") {
 			String[] date = check.split("-");
 			String[] date1 = check1.split("-");
